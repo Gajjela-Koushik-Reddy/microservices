@@ -1,6 +1,7 @@
 package com.koushikreddy.accounts.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.koushikreddy.accounts.constants.AccountConstants;
 import com.koushikreddy.accounts.dto.CustomerDto;
 import com.koushikreddy.accounts.dto.ResponseDto;
+import com.koushikreddy.accounts.service.IAccountService;
+
+import lombok.AllArgsConstructor;
 
 @RestController // @RestController is used to create RESTful web services using Spring MVC
 @RequestMapping(path = "/api", produces = { MediaType.APPLICATION_JSON_VALUE }) // @RequestMapping is used to map web
                                                                                 // requests to Spring Controller methods
+@AllArgsConstructor
 public class AccountsController {
+
+    private final IAccountService iAccountService;
 
     @GetMapping("/hello") // @GetMapping is used to map HTTP GET requests onto specific handler methods
     public String hello() {
@@ -25,11 +32,18 @@ public class AccountsController {
 
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createAccount(@RequestBody CustomerDto customerDto) {
-
+        iAccountService.createAccount(customerDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(new ResponseDto(AccountConstants.STATUS_201, AccountConstants.MESSAGE_201));
+    }
 
+    @GetMapping("/fetch")
+    public ResponseEntity<CustomerDto> fetchAccountDetails(@RequestParam String mobileNumber) {
+        CustomerDto customerDto = iAccountService.fetchAccount(mobileNumber);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(customerDto);
     }
 
 }

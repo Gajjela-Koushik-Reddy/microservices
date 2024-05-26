@@ -1,14 +1,14 @@
 package com.koushikreddy.accounts.mapper;
 
 import com.koushikreddy.accounts.dto.AccountDto;
-import com.koushikreddy.accounts.entity.Account;
+import com.koushikreddy.accounts.entity.Accounts;
 
 /* 
  * This class is used to map DTO to Entity and Entity to DTO
  */
 
 public class AccountMapper {
-    public static AccountDto mapToAccountDto(Account account, AccountDto accountDto) {
+    public static AccountDto mapToAccountDto(Accounts account, AccountDto accountDto) {
 
         accountDto.setAccountNumber(account.getAccountNumber());
         accountDto.setAccountType(account.getAccountType());
@@ -17,7 +17,7 @@ public class AccountMapper {
 
     }
 
-    public static Account mapToAccount(AccountDto accountDto, Account account) {
+    public static Accounts mapToAccount(AccountDto accountDto, Accounts account) {
 
         account.setAccountNumber(accountDto.getAccountNumber());
         account.setAccountType(accountDto.getAccountType());

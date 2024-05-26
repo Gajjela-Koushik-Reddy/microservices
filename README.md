@@ -18,7 +18,7 @@ This project is a collection of microservices built using Spring Boot and follow
 
 ## Architecture
 The project consists of the following microservices:
-- **User Service**: Manages user-related operations.
+- **Customer Service**: Manages user-related operations.
 - **Account Service**: Handles account-related functionalities.
 - **Loan Service**: Manages loan processing and information.
 
@@ -27,8 +27,10 @@ Each microservice follows the MVC pattern:
 - **Service**: Contains business logic.
 - **Repository**: Manages data persistence.
 
+![alt text](./assets/image.png)
+
 ## Microservices
-1. **User Service**
+1. **Customer Service**
     - Manages user-related operations.
     - Exposes APIs for user registration, authentication, and profile management.
     
@@ -80,7 +82,7 @@ Each microservice follows the MVC pattern:
 
 ### API Documentation
 API documentation is available via Swagger. Once the services are running, you can access the Swagger UI at:
-- **User Service**: `http://localhost:8080/swagger-ui.html`
+- **Customer Service**: `http://localhost:8080/swagger-ui.html`
 - **Account Service**: `http://localhost:8081/swagger-ui.html`
 - **Loan Service**: `http://localhost:8082/swagger-ui.html`
 

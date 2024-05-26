@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer extends BaseEntity {
+public class Customers extends BaseEntity {
 
     @Id // @Id annotation is used to specify the primary key of an entity.
     @GeneratedValue(strategy = GenerationType.IDENTITY) // @GeneratedValue annotation is used to specify the generation
