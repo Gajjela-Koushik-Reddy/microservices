@@ -32,11 +32,11 @@ public class GlobalExceptionHandler {
 
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(
                 webRequest.getDescription(false),
-                HttpStatus.CONFLICT,
+                HttpStatus.BAD_REQUEST,
                 exception.getMessage(),
                 LocalDateTime.now());
 
-        return new ResponseEntity<>(errorResponseDto, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
     }
 
 }

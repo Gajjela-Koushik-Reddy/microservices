@@ -10,6 +10,7 @@ import com.koushikreddy.accounts.dto.AccountDto;
 import com.koushikreddy.accounts.dto.CustomerDto;
 import com.koushikreddy.accounts.entity.Accounts;
 import com.koushikreddy.accounts.entity.Customers;
+import com.koushikreddy.accounts.exception.CustomerAlreadyExistsException;
 import com.koushikreddy.accounts.exception.ResourceNotFoundException;
 import com.koushikreddy.accounts.mapper.AccountMapper;
 import com.koushikreddy.accounts.mapper.CustomerMapper;
@@ -32,7 +33,7 @@ public class AccountServiceImpl implements IAccountService {
         Optional<Customers> optionalCustomer = customerRepository.findByMobileNumber(customer.getMobileNumber());
 
         if (optionalCustomer.isPresent()) {
-            throw new RuntimeException("Customer already exists with the mobile number: " + customer.getMobileNumber());
+            throw new CustomerAlreadyExistsException("Customer already exists with the mobile number: " + customer.getMobileNumber());
         }
 
         customer.setCreatedAt(LocalDateTime.now());
