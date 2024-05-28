@@ -6,10 +6,10 @@
 
 ### How to handle exceptions
 
-1. **Per Exception basis**
+1. Per Exception basis
 
    - Exception Class
-     - @ResponseStatus is used to set a custom http response status
+     - `@ResponseStatus` is used to set a custom http response status
      - Every custom exception class show extend RuntimeException and call it's  
        constructor with the exception message.
 
