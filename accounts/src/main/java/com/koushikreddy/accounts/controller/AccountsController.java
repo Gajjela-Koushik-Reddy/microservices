@@ -19,7 +19,6 @@ import com.koushikreddy.accounts.service.IAccountService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
 @RestController // @RestController is used to create RESTful web services using Spring MVC
 @RequestMapping(path = "/api", produces = { MediaType.APPLICATION_JSON_VALUE }) // @RequestMapping is used to map web
                                                                                 // requests to Spring Controller methods
@@ -51,11 +50,10 @@ public class AccountsController {
 
     @PutMapping("/update")
     public ResponseEntity<ResponseDto> updateAccountDetails(@RequestBody CustomerDto customerDto) {
-        
+
         boolean isUpdated = iAccountService.updateAccount(customerDto);
 
-        System.out.println("************************************* " + isUpdated);
-        if(isUpdated) {
+        if (isUpdated) {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(new ResponseDto(AccountConstants.STATUS_200, AccountConstants.MESSAGE_200));
@@ -70,7 +68,7 @@ public class AccountsController {
     public ResponseEntity<ResponseDto> deleteAccount(@RequestParam String mobileNumber) {
         boolean isDeleted = iAccountService.deleteAccount(mobileNumber);
 
-        if(isDeleted) {
+        if (isDeleted) {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(new ResponseDto(AccountConstants.STATUS_200, AccountConstants.MESSAGE_200));
