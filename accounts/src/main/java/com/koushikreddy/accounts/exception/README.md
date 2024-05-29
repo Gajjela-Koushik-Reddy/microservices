@@ -91,3 +91,26 @@
        exceptions thrown by the controller. - The method should return a `ResponseEntity`
      - `ResponseEntity` is a generic class in sprint framework that represents a  
        HTTP response, you can add: status code, headers and body.
+
+#### How to handle validation exceptions?
+
+1. Add the required validation annotation in your DTOs
+2. @Override `handleMethodArgumentNotValid` from `ResponseEntityExceptionHandler` class
+   Note: I've written more about it in the comments of the code
+3. Let's go down the rabbit hole
+
+   - if we don't handle the exception - this is what we get in the terminal
+
+   ```
+   Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation
+    failed for argument [0] in public org.springframework.http.ResponseEntity
+    <com.koushikreddy.accounts.dto.ResponseDto>........some more errors here........]
+   ```
+
+   - It is throwing `MethodArgumentNotValidException` exception - we have to handle this exception.
+
+   - with this the user gets a bunch of information in which the error is located.
+     can we do a better job? to let the user know the correct error.
+
+     - yes
+     - you have to catch the exceptions thrown by `MethodArgumentNotValidException` class globally and handle them see 2nd point.

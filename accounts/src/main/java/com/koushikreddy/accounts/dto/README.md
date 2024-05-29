@@ -56,3 +56,7 @@ For example:
     ```
 
 Ref: https://learn.microsoft.com/en-us/aspnet/web-api/overview/formats-and-model-binding/model-validation-in-aspnet-web-api
+
+## Validations
+When ever we are receiving data from the user we need to validate it before making a db query.
+As DTOs are used to send and receive data from the user - we need to add validation to the DTOs.
