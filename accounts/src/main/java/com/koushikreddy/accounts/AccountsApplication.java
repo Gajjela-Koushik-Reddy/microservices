@@ -2,17 +2,15 @@ package com.koushikreddy.accounts;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import com.koushikreddy.accounts.entity.Customers;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
+@EnableJpaAuditing(auditorAwareRef = "auditAwareImpl") // to enable auditing in the application
 public class AccountsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AccountsApplication.class, args);
 
-		Object obj = new Customers();
-		System.out.println(obj.toString());
 	}
 
 }

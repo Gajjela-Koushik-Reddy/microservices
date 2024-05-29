@@ -1,6 +1,5 @@
 package com.koushikreddy.accounts.service.impl;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -37,9 +36,6 @@ public class AccountServiceImpl implements IAccountService {
                     "Customer already exists with the mobile number: " + customer.getMobileNumber());
         }
 
-        customer.setCreatedAt(LocalDateTime.now());
-        customer.setCreatedBy("System");
-
         Customers savedCustomer = customerRepository.save(customer);
         accountRepository.save(createNewAccount(savedCustomer));
     }
@@ -58,8 +54,6 @@ public class AccountServiceImpl implements IAccountService {
         newAccount.setAccountNumber(accountNumber);
         newAccount.setAccountType(AccountConstants.SAVINGS);
         newAccount.setBranchAddress(AccountConstants.ADDRESS);
-        newAccount.setCreatedAt(LocalDateTime.now());
-        newAccount.setCreatedBy("System");
 
         return newAccount;
     }
@@ -107,10 +101,9 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public boolean deleteAccount(String mobileNumber) {
-        
+
         Customers customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
-            () -> new ResourceNotFoundException("Customer", "mobileNumber", mobileNumber)
-        );
+                () -> new ResourceNotFoundException("Customer", "mobileNumber", mobileNumber));
 
         accountRepository.deleteByCustomerId(customer.getCustomerId());
         customerRepository.deleteById(customer.getCustomerId());
