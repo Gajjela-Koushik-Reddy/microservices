@@ -17,11 +17,16 @@ import com.koushikreddy.accounts.dto.CustomerDto;
 import com.koushikreddy.accounts.dto.ResponseDto;
 import com.koushikreddy.accounts.service.IAccountService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
 
+@Tag(name = "CRUD REST APIs for Accounts Microservice in EazyBank", description = "CRUD REST APIs in EazyBank to CREATE, UPDATE, FETCH and DELETE account details")
 @RestController // @RestController is used to create RESTful web services using Spring MVC
 @RequestMapping(path = "/api", produces = { MediaType.APPLICATION_JSON_VALUE }) // @RequestMapping is used to map web
                                                                                 // requests to Spring Controller methods
@@ -36,6 +41,8 @@ public class AccountsController {
         return "Hello World!";
     }
 
+    @Operation(summary = "Create Account REST API", description = "REST API to create new Customer and Account inside EazyBank")
+    @ApiResponse(responseCode = "201", description = "HTTP Status Created")
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto) {
         iAccountService.createAccount(customerDto);
@@ -44,6 +51,8 @@ public class AccountsController {
                 .body(new ResponseDto(AccountConstants.STATUS_201, AccountConstants.MESSAGE_201));
     }
 
+    @Operation(summary = "Fetch Account Details REST API", description = "REST API to fetch Customer data inside EazyBank")
+    @ApiResponse(responseCode = "200", description = "HTTP Status OK")
     @GetMapping("/fetch")
     public ResponseEntity<CustomerDto> fetchAccountDetails(
             @RequestParam @Pattern(regexp = "^[0-9]{10}$", message = "Invalid mobile number") String mobileNumber) {
@@ -53,6 +62,10 @@ public class AccountsController {
                 .body(customerDto);
     }
 
+    @Operation(summary = "Update Account REST API", description = "REST API to Update Exsting Customer and Account details inside EazyBank")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "HTTP Status OK"),
+            @ApiResponse(responseCode = "500", description = "HTTP Status Internal Server Error") })
     @PutMapping("/update")
     public ResponseEntity<ResponseDto> updateAccountDetails(@Valid @RequestBody CustomerDto customerDto) {
 
@@ -69,6 +82,10 @@ public class AccountsController {
         }
     }
 
+    @Operation(summary = "Delete Account REST API", description = "REST API to Delete Exsting Customer and Account details inside EazyBank")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "HTTP Status OK"),
+            @ApiResponse(responseCode = "500", description = "HTTP Status Internal Server Error") })
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseDto> deleteAccount(
             @RequestParam @Pattern(regexp = "^[0-9]{10}$", message = "Invalid mobile number") String mobileNumber) {
