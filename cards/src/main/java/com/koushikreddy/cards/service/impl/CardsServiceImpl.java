@@ -5,8 +5,11 @@ import java.util.Random;
 import org.springframework.stereotype.Service;
 
 import com.koushikreddy.cards.constants.CardsConstants;
+import com.koushikreddy.cards.dto.CardsDto;
 import com.koushikreddy.cards.entities.Cards;
 import com.koushikreddy.cards.exception.CardAlreadyExistsException;
+import com.koushikreddy.cards.exception.ResourceNotFoundException;
+import com.koushikreddy.cards.mapper.CardsMapper;
 import com.koushikreddy.cards.repository.CardsRepository;
 import com.koushikreddy.cards.service.ICardsService;
 
@@ -44,6 +47,19 @@ public class CardsServiceImpl implements ICardsService {
         newCard.setCreatedBy("System");
 
         return newCard;
+    }
+
+    @Override
+    public CardsDto fetchCard(String mobileNumber) {
+
+        Optional<Cards> optionalCards = cardsRepository.findByMobileNumber(mobileNumber);
+
+        if (optionalCards.isEmpty()) {
+            throw new ResourceNotFoundException("Cards", "mobileNumber", mobileNumber);
+        }
+
+        Cards cards = optionalCards.get();
+        return CardsMapper.mapToCardsDto(cards, new CardsDto());
     }
 
 }

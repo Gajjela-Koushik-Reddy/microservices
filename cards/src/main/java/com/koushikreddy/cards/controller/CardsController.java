@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.koushikreddy.cards.constants.CardsConstants;
+import com.koushikreddy.cards.dto.CardsDto;
 import com.koushikreddy.cards.dto.ResponseDto;
 import com.koushikreddy.cards.service.ICardsService;
 
@@ -33,6 +34,14 @@ public class CardsController {
         iCardsService.createCard(mobileNumber);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ResponseDto(CardsConstants.STATUS_201, CardsConstants.MESSAGE_201));
+    }
+
+    @GetMapping("/fetch")
+    public ResponseEntity<CardsDto> fetchCard(@RequestParam String mobileNumber) {
+
+        CardsDto cardsDto = iCardsService.fetchCard(mobileNumber);
+
+        return ResponseEntity.status(HttpStatus.OK).body(cardsDto);
     }
 
 }
