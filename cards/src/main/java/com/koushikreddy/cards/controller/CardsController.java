@@ -1,5 +1,6 @@
 package com.koushikreddy.cards.controller;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,6 +51,20 @@ public class CardsController {
     public ResponseEntity<ResponseDto> updateCard(@RequestBody CardsDto cardsDto) {
 
         boolean isUpdated = iCardsService.updateCard(cardsDto);
+
+        if (isUpdated) {
+            return new ResponseEntity<>(new ResponseDto(CardsConstants.STATUS_200, CardsConstants.MESSAGE_200),
+                    HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new ResponseDto(CardsConstants.STATUS_417, CardsConstants.MESSAGE_417_UPDATE),
+                    HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<ResponseDto> deleteCard(@RequestParam String mobileNumber) {
+
+        boolean isUpdated = iCardsService.deleteCard(mobileNumber);
 
         if (isUpdated) {
             return new ResponseEntity<>(new ResponseDto(CardsConstants.STATUS_200, CardsConstants.MESSAGE_200),
