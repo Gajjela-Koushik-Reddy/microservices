@@ -16,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController()
 @RequestMapping(path = "/api", produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -42,6 +44,20 @@ public class CardsController {
         CardsDto cardsDto = iCardsService.fetchCard(mobileNumber);
 
         return ResponseEntity.status(HttpStatus.OK).body(cardsDto);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<ResponseDto> updateCard(@RequestBody CardsDto cardsDto) {
+
+        boolean isUpdated = iCardsService.updateCard(cardsDto);
+
+        if (isUpdated) {
+            return new ResponseEntity<>(new ResponseDto(CardsConstants.STATUS_200, CardsConstants.MESSAGE_200),
+                    HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new ResponseDto(CardsConstants.STATUS_417, CardsConstants.MESSAGE_417_UPDATE),
+                    HttpStatus.EXPECTATION_FAILED);
+        }
     }
 
 }

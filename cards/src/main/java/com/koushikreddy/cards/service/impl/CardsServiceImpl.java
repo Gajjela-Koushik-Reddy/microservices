@@ -62,4 +62,23 @@ public class CardsServiceImpl implements ICardsService {
         return CardsMapper.mapToCardsDto(cards, new CardsDto());
     }
 
+    @Override
+    public boolean updateCard(CardsDto cardsDto) {
+
+        // check if the customer exists in the db
+        Optional<Cards> optionalCard = cardsRepository.findByCardNumber(cardsDto.getCardNumber());
+
+        if (optionalCard.isEmpty()) {
+            throw new ResourceNotFoundException("Cards", "mobileNumber", cardsDto.getCardNumber());
+        }
+
+        Cards card = optionalCard.get();
+
+        CardsMapper.mapToCards(cardsDto, card);
+
+        cardsRepository.save(card);
+
+        return true;
+    }
+
 }
