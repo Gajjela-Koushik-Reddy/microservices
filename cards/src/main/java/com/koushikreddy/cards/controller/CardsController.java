@@ -15,7 +15,6 @@ public class CardsController {
 
     @GetMapping("/hello")
     public String hello() {
-
         return "{Welcome: Welcome to Cards Microservie}";
     }
 }
