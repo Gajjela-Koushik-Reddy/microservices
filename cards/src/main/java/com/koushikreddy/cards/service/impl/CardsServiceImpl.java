@@ -14,7 +14,6 @@ import com.koushikreddy.cards.repository.CardsRepository;
 import com.koushikreddy.cards.service.ICardsService;
 
 import lombok.AllArgsConstructor;
-import java.time.LocalDateTime;
 
 @Service
 @AllArgsConstructor
@@ -42,9 +41,6 @@ public class CardsServiceImpl implements ICardsService {
         newCard.setTotalLimit(CardsConstants.NEW_CARD_LIMIT);
         newCard.setAmountUsed(0);
         newCard.setAvailableAmount(CardsConstants.NEW_CARD_LIMIT);
-
-        newCard.setCreatedAt(LocalDateTime.now());
-        newCard.setCreatedBy("System");
 
         return newCard;
     }
