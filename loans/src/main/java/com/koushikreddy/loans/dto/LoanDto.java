@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoanDto {
-    private Long loanId;
     private String mobileNumber;
     private String loanNumber;
     private String loanType;

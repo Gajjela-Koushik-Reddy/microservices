@@ -5,11 +5,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.koushikreddy.loans.constants.LoanConstants;
+import com.koushikreddy.loans.dto.LoanDto;
 import com.koushikreddy.loans.dto.ResponseDto;
 import com.koushikreddy.loans.service.ILoansService;
 
@@ -34,6 +38,42 @@ public class LoansController {
 
         ResponseDto responseDto = new ResponseDto(LoanConstants.STATUS_201, LoanConstants.MESSAGE_201);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/fetch")
+    public ResponseEntity<LoanDto> fetchLoan(@RequestParam String mobileNumber) {
+
+        LoanDto laonsDto = iLoansService.fetchLoan(mobileNumber);
+
+        return new ResponseEntity<>(laonsDto, HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<ResponseDto> updateLoan(@RequestBody LoanDto loansDto) {
+
+        boolean isUpdated = iLoansService.updateLoan(loansDto);
+
+        if (isUpdated) {
+            return new ResponseEntity<>(new ResponseDto(LoanConstants.STATUS_200, LoanConstants.MESSAGE_200),
+                    HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new ResponseDto(LoanConstants.STATUS_417, LoanConstants.MESSAGE_417_UPDATE),
+                    HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<ResponseDto> updateLoan(@RequestParam String mobileNumber) {
+
+        boolean isUpdated = iLoansService.deleteLoan(mobileNumber);
+
+        if (isUpdated) {
+            return new ResponseEntity<>(new ResponseDto(LoanConstants.STATUS_200, LoanConstants.MESSAGE_200),
+                    HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new ResponseDto(LoanConstants.STATUS_417, LoanConstants.MESSAGE_417_UPDATE),
+                    HttpStatus.EXPECTATION_FAILED);
+        }
     }
 
 }

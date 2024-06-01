@@ -1,8 +1,8 @@
 package com.koushikreddy.loans.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-import org.springframework.web.servlet.resource.HttpResource;
+import org.springframework.http.HttpStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ErrorResponseDto {
     private String apiPath;
-    private HttpResource errorCode;
+    private HttpStatus errorCode;
     private String errorMessage;
-    private LocalDate errorTime;
+    private LocalDateTime errorTime;
 }

@@ -7,7 +7,11 @@ import java.util.Random;
 import org.springframework.stereotype.Service;
 
 import com.koushikreddy.loans.constants.LoanConstants;
+import com.koushikreddy.loans.dto.LoanDto;
 import com.koushikreddy.loans.entity.Loans;
+import com.koushikreddy.loans.exception.LoanAlreadyExistsException;
+import com.koushikreddy.loans.exception.ResourceNotFoundException;
+import com.koushikreddy.loans.mapper.LoansMapper;
 import com.koushikreddy.loans.repository.LoansRepository;
 import com.koushikreddy.loans.service.ILoansService;
 
@@ -26,7 +30,7 @@ public class LoansServiceImpl implements ILoansService {
         Optional<Loans> optionalLoan = loansRepository.findByMobileNumber(mobileNumber);
 
         if (!optionalLoan.isEmpty()) {
-            throw new RuntimeException("Loan already registered with given mobileNumber " + mobileNumber);
+            throw new LoanAlreadyExistsException("Customer Already Exists with mobile number: " + mobileNumber);
         }
 
         loansRepository.save(createNewLoan(mobileNumber));
@@ -52,6 +56,51 @@ public class LoansServiceImpl implements ILoansService {
         newLoan.setCreatedBy("System");
 
         return newLoan;
+    }
+
+    @Override
+    public LoanDto fetchLoan(String mobileNumber) {
+
+        Optional<Loans> optionalLoan = loansRepository.findByMobileNumber(mobileNumber);
+
+        if (optionalLoan.isEmpty()) {
+            throw new ResourceNotFoundException("Loans", "mobileNumber", mobileNumber);
+        }
+
+        Loans loan = optionalLoan.get();
+
+        return LoansMapper.mapToDto(loan, new LoanDto());
+    }
+
+    @Override
+    public boolean updateLoan(LoanDto loansDto) {
+
+        Optional<Loans> optionalLoans = loansRepository.findByMobileNumber(loansDto.getMobileNumber());
+
+        if (optionalLoans.isEmpty()) {
+            throw new ResourceNotFoundException("Loans", "mobileNumber", loansDto.getMobileNumber());
+        }
+
+        Loans loans = optionalLoans.get();
+        loans = LoansMapper.mapToLoans(loansDto, loans);
+        loansRepository.save(loans);
+
+        return true;
+    }
+
+    @Override
+    public boolean deleteLoan(String mobileNumber) {
+
+        Optional<Loans> optionalLoans = loansRepository.findByMobileNumber(mobileNumber);
+
+        if (optionalLoans.isEmpty()) {
+            throw new ResourceNotFoundException("Loans", "mobileNumber", mobileNumber);
+        }
+
+        loansRepository.delete(optionalLoans.get());
+
+        return true;
+
     }
 
 }
