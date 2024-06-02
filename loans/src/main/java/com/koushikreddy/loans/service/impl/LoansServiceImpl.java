@@ -1,6 +1,5 @@
 package com.koushikreddy.loans.service.impl;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
 
@@ -51,9 +50,6 @@ public class LoansServiceImpl implements ILoansService {
         newLoan.setTotalLoan(LoanConstants.NEW_LOAN_LIMIT);
         newLoan.setAmountPaid(0);
         newLoan.setOutstandingAmount(LoanConstants.NEW_LOAN_LIMIT);
-
-        newLoan.setCreatedAt(LocalDateTime.now());
-        newLoan.setCreatedBy("System");
 
         return newLoan;
     }
