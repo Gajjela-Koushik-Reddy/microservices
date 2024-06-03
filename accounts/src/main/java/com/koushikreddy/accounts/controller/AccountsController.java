@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.koushikreddy.accounts.constants.AccountConstants;
+import com.koushikreddy.accounts.dto.AccountContactInfoDto;
 import com.koushikreddy.accounts.dto.CustomerDto;
 import com.koushikreddy.accounts.dto.ResponseDto;
 import com.koushikreddy.accounts.service.IAccountService;
@@ -48,6 +49,9 @@ public class AccountsController {
     @Autowired
     private Environment environment;
 
+    @Autowired
+    private AccountContactInfoDto accountContactInfoDto;
+
 
     @GetMapping("/build-info") // @GetMapping is used to map HTTP GET requests onto specific handler methods
     public ResponseEntity<String> buildVersion() {
@@ -59,9 +63,9 @@ public class AccountsController {
         return new ResponseEntity<>(environment.getProperty("JAVA_HOME"), HttpStatus.OK);
     }
     
-    @GetMapping("/build-info") // @GetMapping is used to map HTTP GET requests onto specific handler methods
-    public ResponseEntity<String> buildVersion() {
-        return new ResponseEntity<>(buildVersion, HttpStatus.OK);
+    @GetMapping("/contact-info") // @GetMapping is used to map HTTP GET requests onto specific handler methods
+    public ResponseEntity<AccountContactInfoDto> getContactInfo() {
+        return new ResponseEntity<>(accountContactInfoDto, HttpStatus.OK);
     }
 
     @Operation(summary = "Create Account REST API", description = "REST API to create new Customer and Account inside EazyBank")
