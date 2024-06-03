@@ -23,22 +23,30 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.web.bind.annotation.PutMapping;
 
 @Tag(name = "CRUD REST APIs for Accounts Microservice in EazyBank", description = "CRUD REST APIs in EazyBank to CREATE, UPDATE, FETCH and DELETE account details")
 @RestController // @RestController is used to create RESTful web services using Spring MVC
 @RequestMapping(path = "/api", produces = { MediaType.APPLICATION_JSON_VALUE }) // @RequestMapping is used to map web
                                                                                 // requests to Spring Controller methods
-@AllArgsConstructor
 @Validated // @Validated is used to validate the method parameters
 public class AccountsController {
 
     private final IAccountService iAccountService;
 
-    @GetMapping("/hello") // @GetMapping is used to map HTTP GET requests onto specific handler methods
-    public String hello() {
-        return "Hello World!";
+    public AccountsController(IAccountService iAccountService) {
+        this.iAccountService = iAccountService;
+    }
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+
+    @GetMapping("/build-info") // @GetMapping is used to map HTTP GET requests onto specific handler methods
+    public ResponseEntity<String> buildVersion() {
+        return new ResponseEntity<>(buildVersion, HttpStatus.OK);
     }
 
     @Operation(summary = "Create Account REST API", description = "REST API to create new Customer and Account inside EazyBank")
