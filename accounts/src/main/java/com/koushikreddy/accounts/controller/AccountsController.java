@@ -23,8 +23,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
-import org.springframework.beans.factory.annotation.Value;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @Tag(name = "CRUD REST APIs for Accounts Microservice in EazyBank", description = "CRUD REST APIs in EazyBank to CREATE, UPDATE, FETCH and DELETE account details")
@@ -43,7 +45,20 @@ public class AccountsController {
     @Value("${build.version}")
     private String buildVersion;
 
+    @Autowired
+    private Environment environment;
 
+
+    @GetMapping("/build-info") // @GetMapping is used to map HTTP GET requests onto specific handler methods
+    public ResponseEntity<String> buildVersion() {
+        return new ResponseEntity<>(buildVersion, HttpStatus.OK);
+    }
+
+    @GetMapping("/java-version") // @GetMapping is used to map HTTP GET requests onto specific handler methods
+    public ResponseEntity<String> getJavaVersion() {
+        return new ResponseEntity<>(environment.getProperty("JAVA_HOME"), HttpStatus.OK);
+    }
+    
     @GetMapping("/build-info") // @GetMapping is used to map HTTP GET requests onto specific handler methods
     public ResponseEntity<String> buildVersion() {
         return new ResponseEntity<>(buildVersion, HttpStatus.OK);
