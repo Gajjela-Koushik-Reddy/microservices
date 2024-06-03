@@ -1,0 +1,15 @@
+spring:
+    config:
+        activate:
+            on-profile: "prod"
+build:
+  version: "1.0"
+
+accounts:
+  message: "Welcome to EazyBank accounts related local APIs "
+  contactDetails:
+    name: "John Doe - Developer"
+    email: "john@example.com"
+  onCallSupport:
+    - "(555) 555-****"
+    - "(555) 523-****"
