@@ -2,6 +2,7 @@ package com.koushikreddy.loans.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,24 +16,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.koushikreddy.loans.constants.LoanConstants;
 import com.koushikreddy.loans.dto.LoanDto;
+import com.koushikreddy.loans.dto.LoansContactInfoDto;
 import com.koushikreddy.loans.dto.ResponseDto;
 import com.koushikreddy.loans.service.ILoansService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
 
 @Validated
 @RestController
 @RequestMapping(path = "/api", produces = { MediaType.APPLICATION_JSON_VALUE })
-@AllArgsConstructor
 public class LoansController {
 
     private final ILoansService iLoansService;
 
-    @GetMapping("/hello")
-    public String hello() {
-        return "Welcome to Loans Microservice";
+    public LoansController(ILoansService iLoansService) {
+        this.iLoansService = iLoansService;
+    }
+
+    @Autowired
+    private LoansContactInfoDto loansContactInfoDto;
+
+    @GetMapping("/contact-info")
+    public ResponseEntity<LoansContactInfoDto> getContactInfo() {
+        return new ResponseEntity<>(loansContactInfoDto, HttpStatus.OK);
     }
 
     @PostMapping("/create")

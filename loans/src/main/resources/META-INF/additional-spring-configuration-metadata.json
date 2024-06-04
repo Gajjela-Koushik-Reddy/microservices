@@ -1,0 +1,27 @@
+{"properties": [
+  {
+    "name": "build.version",
+    "type": "java.lang.String",
+    "description": "A description for 'build.version'"
+  },
+  {
+    "name": "loans.message",
+    "type": "java.lang.String",
+    "description": "A description for 'loans.message'"
+  },
+  {
+    "name": "loans.contactDetails.name",
+    "type": "java.lang.String",
+    "description": "A description for 'loans.contactDetails.name'"
+  },
+  {
+    "name": "loans.contactDetails.email",
+    "type": "java.lang.String",
+    "description": "A description for 'loans.contactDetails.email'"
+  },
+  {
+    "name": "loans.onCallSupport",
+    "type": "java.util.List",
+    "description": "A description for 'loans.onCallSupport'"
+  }
+]}
