@@ -1,0 +1,11 @@
+build:
+  version: "2.0"
+
+accounts:
+  message: "Welcome to EazyBank accounts related QA APIs "
+  contactDetails:
+    name: "Dragos Lech - accounts QA Developer"
+    email: "dragos@eazybank.com"
+  onCallSupport:
+    - (412) 419-****
+    - (915) 382-****
