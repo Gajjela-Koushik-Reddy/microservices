@@ -7,14 +7,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.koushikreddy.cards.constants.CardsConstants;
+import com.koushikreddy.cards.dto.CardContactInfoDto;
 import com.koushikreddy.cards.dto.CardsDto;
 import com.koushikreddy.cards.dto.ResponseDto;
 import com.koushikreddy.cards.service.ICardsService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,15 +26,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController()
 @RequestMapping(path = "/api", produces = { MediaType.APPLICATION_JSON_VALUE })
-@AllArgsConstructor
 @Validated
 public class CardsController {
 
     private final ICardsService iCardsService;
 
-    @GetMapping("/hello")
-    public String hello() {
-        return "{Welcome: Welcome to Cards Microservie}";
+    public CardsController(ICardsService iCardsService) {
+        this.iCardsService = iCardsService;
+    }
+
+    @Autowired
+    private CardContactInfoDto cardContactInfoDto;
+
+    @GetMapping("/contact-info")
+    public ResponseEntity<CardContactInfoDto> getContactInfo() {
+        return new ResponseEntity<>(cardContactInfoDto, HttpStatus.OK);
     }
 
     @PostMapping("/create")

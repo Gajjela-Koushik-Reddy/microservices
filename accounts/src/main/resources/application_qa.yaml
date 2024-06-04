@@ -6,7 +6,7 @@ build:
   version: "2.0"
 
 accounts:
-  message: "Welcome to EazyBank accounts related local APIs "
+  message: "Welcome to EazyBank accounts related qa APIs "
   contactDetails:
     name: "John Doe - Developer"
     email: "john@example.com"

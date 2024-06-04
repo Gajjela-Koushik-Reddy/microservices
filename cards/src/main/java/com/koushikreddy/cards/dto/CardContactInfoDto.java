@@ -1,0 +1,10 @@
+package com.koushikreddy.cards.dto;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties(prefix = "cards")
+public record CardContactInfoDto(String buildVersion, Map<String, String> contactDetails, List<String> onCallSupport) {
+}
