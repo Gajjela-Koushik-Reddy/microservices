@@ -6,5 +6,7 @@ import java.util.Map;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "cards")
-public record CardContactInfoDto(String buildVersion, Map<String, String> contactDetails, List<String> onCallSupport) {
+public record CardContactInfoDto(String message, Map<String, String> contactDetails, List<String> onCallSupport) {
 }
+
+

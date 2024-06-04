@@ -14,9 +14,16 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  config:
+    import:
+      - "application_qa.yaml"
+      - "application_prod.yaml"
+  profiles:
+    active:
+      - "qa"
 
 build:
-  version: "3.0"
+  version: "1.0"
 
 cards:
   message: "Welcome to EazyBank cards related local APIs "
