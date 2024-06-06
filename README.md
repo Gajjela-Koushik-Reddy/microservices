@@ -76,6 +76,8 @@ Each microservice follows the MVC pattern:
     ```
 
 2. Alternatively, you can run all services using Docker Compose:
+    - build image before building 
+        - mvn spring-boot:build-image
     ```sh
     docker-compose up
     ```
