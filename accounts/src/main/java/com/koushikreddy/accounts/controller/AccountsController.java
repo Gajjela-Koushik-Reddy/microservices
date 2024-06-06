@@ -26,7 +26,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -43,20 +42,11 @@ public class AccountsController {
         this.iAccountService = iAccountService;
     }
 
-    @Value("${build.version}")
-    private String buildVersion;
-
     @Autowired
     private Environment environment;
 
     @Autowired
     private AccountContactInfoDto accountContactInfoDto;
-
-
-    @GetMapping("/build-info") // @GetMapping is used to map HTTP GET requests onto specific handler methods
-    public ResponseEntity<String> buildVersion() {
-        return new ResponseEntity<>(buildVersion, HttpStatus.OK);
-    }
 
     @GetMapping("/java-version") // @GetMapping is used to map HTTP GET requests onto specific handler methods
     public ResponseEntity<String> getJavaVersion() {
