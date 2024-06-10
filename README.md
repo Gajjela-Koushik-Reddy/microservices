@@ -21,6 +21,7 @@ The project consists of the following microservices:
 - **Customer Service**: Manages user-related operations.
 - **Account Service**: Handles account-related functionalities.
 - **Loan Service**: Manages loan processing and information.
+- **Configuration Service**: Manages the configuration settings of the above microservices
 
 Each microservice follows the MVC pattern:
 - **Controller**: Handles HTTP requests and responses.
